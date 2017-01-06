@@ -72,5 +72,7 @@ describe DockingStation do
 
   describe "issues regarding broken bikes" do
     it {is_expected.to respond_to :dock_broken}
+    it {is_expected.to eq "Is the Bike working?" }
   end
+
 end

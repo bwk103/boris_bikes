@@ -20,6 +20,9 @@ class DockingStation
       @docked_bikes << bike
   end
 
+  def dock_broken
+  end
+
 private
 
   def full?
