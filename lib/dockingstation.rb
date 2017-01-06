@@ -1,8 +1,10 @@
+require_relative 'bike'
+
 class DockingStation
 
   DEFAULT_CAPACITY = 20
 
-  attr_accessor :docked_bikes
+  attr_accessor :docked_bikes, :working_bikes
   attr_reader :capacity
 
   def initialize(capacity = DEFAULT_CAPACITY)
@@ -26,7 +28,6 @@ class DockingStation
 
   def dock_broken(bike)
     "Is the Bike working?"
-
   end
 
 private

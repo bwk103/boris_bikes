@@ -6,6 +6,7 @@ describe DockingStation do
     it { expect(subject.respond_to?(:release_bike)).to eq true }
     before (:each) do
       subject.docked_bikes << bike
+      subject.working_bikes << bike
     end
     it "releases a bike" do
       expect(subject.release_bike()).to be_instance_of(Bike)
@@ -26,7 +27,7 @@ describe DockingStation do
 
   describe "tests without bikes in docking station" do
     it "doesn't allow a bike to be released if there are no bikes" do
-      expect {subject.release_bike}.to raise_error(RuntimeError, "There are no docked bikes!")
+      expect {subject.release_bike}.to raise_error(RuntimeError, "There are no working bikes available!")
     end
   end
 
@@ -35,16 +36,10 @@ describe DockingStation do
     it "allows a bike to be docked if the current number of bikes is less than the specified capacity" do
       (docking_station.capacity - 1).times {docking_station.docked_bikes << Bike.new}
       expect { docking_station.dock(bike) }.not_to raise_error
-      last_bike = docking_station.docked_bikes[-1]
-      expect(docking_station.release_bike).to eq last_bike
     end
     it "allows a maximum of the specified capacity of bikes to be docked at a time" do
       (docking_station.capacity).times {docking_station.docked_bikes << Bike.new}
       expect { docking_station.dock(bike) }.to raise_error(RuntimeError, "This docking_station is full!")
-    end
-    it "releases the last docked bike" do
-        subject.dock(bike)
-        expect(subject.release_bike).to eq bike
     end
   end
 
@@ -79,6 +74,16 @@ describe DockingStation do
     docking_station.dock(Bike.new)
     it "will not release broken bikes" do
       expect(docking_station.release_bike.broken).to eq false
+    end
+  end
+
+  describe "broken bike tests" do
+    bike = Bike.new
+    bike.report_broken
+    docking_station = DockingStation.new
+    docking_station.dock(bike)
+    it "Should not release the broken bike" do
+      expect {docking_station.release_bike}.to raise_error(RuntimeError, "There are no working bikes available!")
     end
   end
 end
