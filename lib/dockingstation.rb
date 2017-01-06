@@ -26,10 +26,6 @@ class DockingStation
       end
   end
 
-  def dock_broken(bike)
-    "Is the Bike working?"
-  end
-
 private
 
   def full?

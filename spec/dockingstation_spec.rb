@@ -1,15 +1,14 @@
 require "dockingstation.rb"
 
 describe DockingStation do
-  bike = Bike.new
   describe "tests with one bike in the docking_station" do
     it { expect(subject.respond_to?(:release_bike)).to eq true }
     before (:each) do
-      subject.docked_bikes << bike
-      subject.working_bikes << bike
+      subject.docked_bikes << Bike.new
+      subject.working_bikes << Bike.new
     end
     it "releases a bike" do
-      expect(subject.release_bike()).to be_instance_of(Bike)
+      expect(subject.release_bike()).to be_instance_of double(:bike)
     end
     it "the released bike is working" do
       expect(subject.release_bike.working?).to eq true
@@ -21,7 +20,7 @@ describe DockingStation do
       expect(subject).to respond_to(:dock).with(1).argument
     end
     it "can tell a user what bikes are docked" do
-      expect(subject.docked_bikes).to include(bike)
+      expect(subject.docked_bikes).to include double(:bike)
     end
   end
 
@@ -34,23 +33,23 @@ describe DockingStation do
   describe "tests for specified docking station capacity" do
     docking_station = DockingStation.new(50)
     it "allows a bike to be docked if the current number of bikes is less than the specified capacity" do
-      (docking_station.capacity - 1).times {docking_station.docked_bikes << Bike.new}
-      expect { docking_station.dock(bike) }.not_to raise_error
+      (docking_station.capacity - 1).times {docking_station.docked_bikes << double(:bike)}
+      expect { docking_station.dock double(:bike) }.not_to raise_error
     end
     it "allows a maximum of the specified capacity of bikes to be docked at a time" do
-      (docking_station.capacity).times {docking_station.docked_bikes << Bike.new}
-      expect { docking_station.dock(bike) }.to raise_error(RuntimeError, "This docking_station is full!")
+      (docking_station.capacity).times {docking_station.docked_bikes << double(:bike)}
+      expect { docking_station.dock double(:bike) }.to raise_error(RuntimeError, "This docking_station is full!")
     end
   end
 
   context "tests for default docking station capacity" do
     it "allows a bike to be docked if current number of bikes is less than the default capacity" do
-      ((subject.capacity) -1).times { subject.dock(Bike.new)}
-      expect { subject.dock(bike) }.not_to raise_error
+      ((subject.capacity) -1).times { subject.dock(double(:bike))}
+      expect { subject.dock double(:bike) }.not_to raise_error
     end
     it "allows a maximum of the default capacity of bikes to be docked at a time" do
-      (subject.capacity).times { subject.dock(Bike.new)}
-      expect { subject.dock(bike) }.to raise_error(RuntimeError, "This docking_station is full!")
+      (subject.capacity).times { subject.dock(double(:bike))}
+      expect { subject.dock(double(:bike)) }.to raise_error(RuntimeError, "This docking_station is full!")
     end
   end
 
