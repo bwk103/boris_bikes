@@ -21,6 +21,7 @@ class DockingStation
   end
 
   def dock_broken
+    "Is the Bike working?"
   end
 
 private

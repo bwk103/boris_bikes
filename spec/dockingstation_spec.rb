@@ -71,8 +71,10 @@ describe DockingStation do
   end
 
   describe "issues regarding broken bikes" do
-    it {is_expected.to respond_to :dock_broken}
-    it {is_expected.to eq "Is the Bike working?" }
-  end
+    it { is_expected.to respond_to :dock_broken.with(1).argument }
 
+    it "Asks whether the bike is broken" do
+    expect(subject.dock_broken).to eq "Is the Bike working?"
+    end
+  end
 end
