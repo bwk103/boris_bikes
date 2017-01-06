@@ -20,8 +20,9 @@ class DockingStation
       @docked_bikes << bike
   end
 
-  def dock_broken
+  def dock_broken(bike)
     "Is the Bike working?"
+    
   end
 
 private
