@@ -73,4 +73,12 @@ describe DockingStation do
   describe "issues regarding broken bikes" do
     it { is_expected.to respond_to(:dock_broken).with(1).argument }
   end
+
+  describe "docking station will not release broken bikes" do
+    docking_station = DockingStation.new
+    docking_station.dock(Bike.new)
+    it "will not release broken bikes" do
+      expect(docking_station.release_bike.broken).to eq false
+    end
+  end
 end
