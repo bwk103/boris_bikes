@@ -1,5 +1,7 @@
 class DockingStation
+
   DEFAULT_CAPACITY = 20
+
   attr_accessor :docked_bikes
   attr_reader :capacity
 
@@ -15,7 +17,7 @@ class DockingStation
 
   def dock(bike)
     raise "This docking_station is full!" if full?
-    @docked_bikes << bike
+      @docked_bikes << bike
   end
 
 private

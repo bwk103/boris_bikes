@@ -69,4 +69,8 @@ describe DockingStation do
       expect(docking_station.capacity).to eq test_capacity
     end
   end
+
+  describe "issues regarding broken bikes" do
+    it {is_expected.to respond_to :dock_broken}
+  end
 end
